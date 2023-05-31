@@ -20,6 +20,7 @@ package org.apache.dubbo.springboot.demo.consumer;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.dubbo.springboot.demo.DemoService;
+import org.apache.dubbo.springboot.demo.exception.BusinessException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +46,22 @@ public class ConsumerApplication {
             String result = application.doSayHello("world");
             LOGGER.info("result: {}", result);
         }
+
+        for (int i = 0; i < 10; i++) {
+            try {
+                String res = application.deTestError("test error");
+                LOGGER.info("test error res: {}", res);
+            } catch (BusinessException e) {
+                LOGGER.error("biz error", e);
+            }
+        }
     }
 
     public String doSayHello(String name) {
         return demoService.sayHello(name);
+    }
+
+    public String deTestError(String msg) {
+        return demoService.testError(msg);
     }
 }

@@ -1,0 +1,2 @@
+org.apache.dubbo.springboot.demo.exception.BusinessException
+org.apache.dubbo.springboot.demo.exception.ApplicationException
